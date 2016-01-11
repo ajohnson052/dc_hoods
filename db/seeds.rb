@@ -18,7 +18,8 @@ def create_hoods array
       perimeter.push(point)
     end
     geokit_hood = Geokit::Polygon.new(perimeter)
-    ar_hood = Hood.create(geo: hood)
+    # ar_hood = Hood.create(geo: hood)
+    ar_hood = Hood.create(coordinates: hood["geometry"]["coordinates"][0], name: hood["properties"]["NAME"])
     array.push([ar_hood, geokit_hood])
 
   end
@@ -34,7 +35,7 @@ def create_metros geokit_hoods
     point = Geokit::LatLng.new(coordinates[0], coordinates[1])
     geokit_hoods.each do |hood|
       if hood[1].contains?(point)
-        hood[0].metros.create(coordinates: coordinates)
+        hood[0].metros.create(coordinates: coordinates, name: station["properties"]["NAME"], address: station["properties"]["ADDRESS"])
         break
       end
     end

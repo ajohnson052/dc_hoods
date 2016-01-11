@@ -11,22 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111205751) do
+ActiveRecord::Schema.define(version: 20160110173714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "hoods", force: :cascade do |t|
-    t.json     "geo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "coordinates", default: [],              array: true
+    t.string   "name"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "metros", force: :cascade do |t|
-    t.json     "coordinates"
+    t.string   "coordinates", default: [],              array: true
+    t.string   "name"
+    t.string   "address"
     t.integer  "hood_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "metros", ["hood_id"], name: "index_metros_on_hood_id", using: :btree
