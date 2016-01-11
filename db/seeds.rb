@@ -1,46 +1,46 @@
 require 'pry'
-#destroy everything in existing db
-Hood.destroy_all
-Library.destroy_all
+require 'geokit'
 
-#function for converting traditional geojson to [lat, lng] for use with mapbox
-def flip_lat_lng array
-  array.each do |element|
-    element.reverse!
-  end
-end
+#destroy everything in existing db
+Metro.destroy_all
+Hood.destroy_all
+
 
 #create neighborhoods
-def create_hoods
+def create_hoods array
   response = HTTParty.get("https://raw.githubusercontent.com/benbalter/dc-maps/master/maps/neighborhood-names.geojson")
   parsed = JSON.parse(response)
   hoods = parsed["features"]
   hoods.each do |hood|
-    flip_lat_lng hood["geometry"]["coordinates"][0]
-    Hood.create(geo: hood)
+    perimeter = []
+    hood["geometry"]["coordinates"][0].each do |coordinates|
+      point = Geokit::LatLng.new(coordinates[1], coordinates[0])
+      perimeter.push(point)
+    end
+    geokit_hood = Geokit::Polygon.new(perimeter)
+    ar_hood = Hood.create(geo: hood)
+    array.push([ar_hood, geokit_hood])
+
   end
 end
 
-#create libraries
-def create_libraries
+#create metros
+def create_metros geokit_hoods
   response = HTTParty.get("https://raw.githubusercontent.com/benbalter/dc-maps/master/maps/metro-stations-district.geojson")
   parsed = JSON.parse(response)
   collection = parsed["features"]
-  collection.each do |library|
-    library["geometry"]["coordinates"].reverse!
-    Library.create(geo: library)
+  collection.each do |station|
+    coordinates = station["geometry"]["coordinates"].reverse
+    point = Geokit::LatLng.new(coordinates[0], coordinates[1])
+    geokit_hoods.each do |hood|
+      if hood[1].contains?(point)
+        hood[0].metros.create(coordinates: coordinates)
+        break
+      end
+    end
   end
 end
 
-# def create(url, class)
-#   response = HTTParty.get(url)
-#   parsed = JSON.parse(response)
-#   collection = parsed["features"]
-#   collection.each do |member|
-#     member["geometry"]["coordinates"].reverse!
-#     class.create(geo: member)
-#   end
-# end
-
-create_hoods
-create_libraries
+geokit_hoods = []
+create_hoods(geokit_hoods)
+create_metros(geokit_hoods)
