@@ -17,19 +17,19 @@ ActiveRecord::Schema.define(version: 20160110173714) do
   enable_extension "plpgsql"
 
   create_table "hoods", force: :cascade do |t|
-    t.string   "coordinates", default: [],              array: true
     t.string   "name"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "coordinates", default: [],              array: true
   end
 
   create_table "metros", force: :cascade do |t|
-    t.string   "coordinates", default: [],              array: true
     t.string   "name"
     t.string   "address"
     t.integer  "hood_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "coordinates", default: [],              array: true
   end
 
   add_index "metros", ["hood_id"], name: "index_metros_on_hood_id", using: :btree
