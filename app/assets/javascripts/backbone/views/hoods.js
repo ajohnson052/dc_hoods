@@ -1,5 +1,6 @@
 App.Views.Hoods = Backbone.View.extend({
-  // el: "#map",
+  el: "main",
+  polygons: {},
 
   initialize: function(){
     this.listenTo(this.collection, "reset", this.renderAll);
@@ -21,17 +22,32 @@ App.Views.Hoods = Backbone.View.extend({
     return array;
   },
 
-  renderOne: function(hoodModel){
-    new App.Views.Hood({model: hoodModel});
-    var flipped = this.flipLatLng(hoodModel.attributes.coordinates);
+  renderOne: function(model, metros){
+    new App.Views.Hood({model: model});
+    var flipped = this.flipLatLng(model.attributes.coordinates);
     var neighborhood = L.polygon(flipped).addTo(this.map);
-    neighborhood.bindPopup(hoodModel.attributes.name);
-    neighborhood.setStyle({fillColor: "#FFFFFF"});
-    neighborhood.setStyle({weight: 3, color: "#181B6A"});
+    neighborhood.bindPopup(model.attributes.name);
+    neighborhood.setStyle({weight: 3, color: "#181B6A", opacity: 1});
+    return neighborhood
+  },
 
+  shadeMap: function(category){
+    var array = []
+    this.collection.each(function(model){
+      array.push(model["attributes"][category].length)
+    })
+    var max = Math.max(...array)
+    this.collection.each(function(model){
+      var polygon = App.Views.hoods.polygons[model.attributes.id]
+      var value = model["attributes"][category].length / (max * .8)
+      polygon.setStyle({fillColor: "#181B6A", opacity: value, fillOpacity: value});
+    })
   },
 
   renderAll: function(){
-    this.collection.each(this.renderOne.bind(this));
+    var self = this;
+    this.collection.each(function(model){
+      self.polygons[model.id] = self.renderOne(model)
+    })
   }
 })
