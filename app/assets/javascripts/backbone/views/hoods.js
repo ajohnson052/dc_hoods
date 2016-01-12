@@ -1,6 +1,15 @@
 App.Views.Hoods = Backbone.View.extend({
   el: "main",
+
   polygons: {},
+
+  events: {
+    "change .dropdown": "shadeMap"
+  },
+
+  test: function(e){
+    console.log($(".dropdown option:selected").val())
+  },
 
   initialize: function(){
     this.listenTo(this.collection, "reset", this.renderAll);
@@ -31,7 +40,8 @@ App.Views.Hoods = Backbone.View.extend({
     return neighborhood
   },
 
-  shadeMap: function(category){
+  shadeMap: function(){
+    var category = $(".dropdown option:selected").val().toLowerCase()
     var array = []
     this.collection.each(function(model){
       array.push(model["attributes"][category].length)
