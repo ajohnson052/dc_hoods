@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20160110173714) do
     t.string   "name"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.string   "coordinates", default: [],              array: true
+    t.float    "coordinates", default: [],              array: true
   end
 
   create_table "metros", force: :cascade do |t|
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160110173714) do
     t.integer  "hood_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.string   "coordinates", default: [],              array: true
+    t.float    "coordinates", default: [],              array: true
   end
 
   add_index "metros", ["hood_id"], name: "index_metros_on_hood_id", using: :btree

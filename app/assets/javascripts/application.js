@@ -10,6 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require backbone/app.js
+//= require backbone/models/hood.js
+//= require backbone/collections/hoods.js
+//= require backbone/views/hoods.js
+//= require backbone/routers/dc_hoods.js
+
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks

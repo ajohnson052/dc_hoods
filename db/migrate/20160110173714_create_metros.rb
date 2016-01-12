@@ -5,7 +5,7 @@ class CreateMetros < ActiveRecord::Migration
       t.string :address
       t.references :hood, index: true, foreign_key: true
       t.timestamps null: false
-      t.string :coordinates, array: true, default: []
+      t.float :coordinates, array: true, default: []
     end
   end
 end

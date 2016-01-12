@@ -3,8 +3,9 @@ App = {
   Models: {},
   Views: {},
   Routers: {}
-}
+};
 
-$(document).ready({
-  console.log("working")
-})
+$(document).ready(function(){
+  new App.Routers.DCHoods;
+  Backbone.history.start();
+});

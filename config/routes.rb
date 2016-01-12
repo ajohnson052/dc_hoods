@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "hoods#index"
+  root "welcome#index"
   resources :hoods, only: [:index, :show] do
     resources :metros, only: :index
   end
