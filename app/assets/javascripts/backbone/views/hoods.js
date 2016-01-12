@@ -7,12 +7,10 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   createMap: function(){
-    this.map = L.map('map').setView([38.9038829, -77.01], 12);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
-      id: 'ajohnson052.okcdaa2c',
-      accessToken: 'pk.eyJ1IjoiYWpvaG5zb24wNTIiLCJhIjoiY2lqMjl3aGZqMDAwNnVia3BvbzZndTVxcSJ9.lgDF359V9thO7NOh3x_GEQ'
+    this.map = L.map('map').setView([38.906, -77.012], 12);
+    L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+    	maxZoom: 18,
+    	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
   },
 
@@ -26,10 +24,11 @@ App.Views.Hoods = Backbone.View.extend({
   renderOne: function(hoodModel){
     new App.Views.Hood({model: hoodModel});
     var flipped = this.flipLatLng(hoodModel.attributes.coordinates);
-    console.log(hoodModel.attributes.name)
-    console.log(flipped)
     var neighborhood = L.polygon(flipped).addTo(this.map);
-    // neighborhood.bindPopup(hoodModel.name);
+    neighborhood.bindPopup(hoodModel.attributes.name);
+    neighborhood.setStyle({fillColor: "#FFFFFF"});
+    neighborhood.setStyle({weight: 3, color: "#181B6A"});
+
   },
 
   renderAll: function(){

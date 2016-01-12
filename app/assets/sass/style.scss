@@ -1,4 +1,35 @@
+$bgdColor: #424242;
+$stdColor: #181B6A;
+$accent1: #4D79B2;
+$accent2: #70226A;
+$accent3: #FD774F;
+$accent4: #71AF3B;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: $bgdColor;
+  font-family: 'Dosis', sans-serif;
+}
+
+main {
+  display: flex;
+  color: lighten($accent1, 30%);
+}
+
+.content {
+  flex: 1;
+  text-align: center;
+}
+
+.map {
+  flex: 1;
+}
+
 #map {
-  height: 800px;
-  width: 700px;
+  height: 680px;
+  width: 620px;
+  margin: 0 auto;
 }
