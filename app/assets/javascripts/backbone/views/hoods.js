@@ -1,14 +1,10 @@
 App.Views.Hoods = Backbone.View.extend({
   el: "main",
-
   polygons: {},
+  colors: ["#181B6A", "#4D79B2", "#70226A", "#FD774F", "#71AF3B"],
 
   events: {
-    "change .dropdown": "shadeMap"
-  },
-
-  test: function(e){
-    console.log($(".dropdown option:selected").val())
+    "change .dropdown": "makeSelection"
   },
 
   initialize: function(){
@@ -32,26 +28,13 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   renderOne: function(model, metros){
+    var color = this.colors[0]
     new App.Views.Hood({model: model});
     var flipped = this.flipLatLng(model.attributes.coordinates);
     var neighborhood = L.polygon(flipped).addTo(this.map);
     neighborhood.bindPopup(model.attributes.name);
-    neighborhood.setStyle({weight: 3, color: "#181B6A", opacity: 1});
+    neighborhood.setStyle({weight: 3, color: color, fillColor: color, opacity: 1, fillOpacity: .2});
     return neighborhood
-  },
-
-  shadeMap: function(){
-    var category = $(".dropdown option:selected").val().toLowerCase()
-    var array = []
-    this.collection.each(function(model){
-      array.push(model["attributes"][category].length)
-    })
-    var max = Math.max(...array)
-    this.collection.each(function(model){
-      var polygon = App.Views.hoods.polygons[model.attributes.id]
-      var value = model["attributes"][category].length / (max * .8)
-      polygon.setStyle({fillColor: "#181B6A", opacity: value, fillOpacity: value});
-    })
   },
 
   renderAll: function(){
@@ -59,5 +42,41 @@ App.Views.Hoods = Backbone.View.extend({
     this.collection.each(function(model){
       self.polygons[model.id] = self.renderOne(model)
     })
+  },
+
+  makeSelection: function(){
+    var category = $(".dropdown option:selected").val().toLowerCase()
+    var self = this;
+    if(category == "none"){
+      this.collection.each(function(model){
+        var polygon = App.Views.hoods.polygons[model.attributes.id]
+        var color = self.colors[0]
+        polygon.setStyle({color: color, fillColor: color, opacity: 1, fillOpacity: .2});
+      })
+    }else{
+      this.shadeMap(category);
+    }
+  },
+
+  shadeMap: function(category){
+
+    var color = this.colors[Math.ceil(Math.random()*4)]
+
+    var array = []
+    this.collection.each(function(model){
+      array.push(model["attributes"][category].length)
+    })
+    var max = Math.max(...array)
+
+    this.collection.each(function(model){
+      var polygon = App.Views.hoods.polygons[model.attributes.id]
+      var value = model["attributes"][category].length / (max * .5)
+      polygon.setStyle({color: color, fillColor: color, opacity: value, fillOpacity: value});
+    })
+  },
+
+  drawChart: function(){
+
   }
+
 })
