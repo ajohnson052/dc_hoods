@@ -20,6 +20,9 @@ main {
   padding: 0;
   margin: 0; }
 
+.dropdown {
+  color: #424242; }
+
 .bar {
   height: 2rem;
   margin: .5rem;
