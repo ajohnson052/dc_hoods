@@ -46,7 +46,8 @@ App.Views.Hoods = Backbone.View.extend({
 
   makeSelection: function(e){
     var category = $(e.currentTarget).attr("id")
-    console.log(typeof category)
+    var title = $(e.currentTarget).html()
+    console.log(title)
     var self = this;
     if(category == "none"){
       this.collection.each(function(model){
@@ -58,7 +59,7 @@ App.Views.Hoods = Backbone.View.extend({
     }else{
       var color = this.colors[Math.ceil(Math.random()*4)];
       this.shadeMap(category, color);
-      this.drawChart(category, color);
+      this.drawChart(category, title, color);
     }
   },
 
@@ -76,8 +77,8 @@ App.Views.Hoods = Backbone.View.extend({
     })
   },
 
-  drawChart: function(category, color){
-    $(".chart").empty()
+  drawChart: function(category, title, color){
+    $(".chart").empty().append($("<h2>" + title + "</h2>"))
     var data = [];
     this.collection.each(function(model){
       data.push({name: model["attributes"]["name"], number: model["attributes"][category].length});
