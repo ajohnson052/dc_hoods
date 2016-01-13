@@ -7,7 +7,7 @@ App.Models.Hood = Backbone.Model.extend({
     this.getAssets();
   },
 
-  getAssets: function(){
+  getAssets: function(asset){
     var self = this
     this.assets.forEach(function(asset){
       $.getJSON("http://localhost:3000/hoods/" + self.attributes.id + "/" + asset)

@@ -6,16 +6,17 @@ body {
   font-family: 'Dosis', sans-serif; }
 
 main {
-  display: flex;
   color: #b8c9e0; }
 
-.content {
-  flex: 1;
+.container-fluid {
+  padding: 0; }
+
+.col-md-6 {
   text-align: center;
-  padding: 2rem; }
+  padding: 2rem;
+  margin: 0; }
 
 .map {
-  flex: 1;
   padding: 0;
   margin: 0; }
 
@@ -28,16 +29,5 @@ main {
 
 #map {
   height: 100vh; }
-
-@media screen and (max-width: 400px) {
-  .main {
-    display: block; }
-
-  .content {
-    display: block;
-    flex: none; }
-
-  .map {
-    flex: none; } }
 
 /*# sourceMappingURL=application.css.map */
