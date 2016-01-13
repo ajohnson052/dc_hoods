@@ -1,15 +1,19 @@
 App.Models.Hood = Backbone.Model.extend({
   urlRoot: "http://localhost:3000/hoods",
 
+  assets: ["metros", "libraries", "grocers"],
+
   initialize: function(){
-    this.getMetros();
+    this.getAssets();
   },
 
-  getMetros: function(){
+  getAssets: function(){
     var self = this
-    $.getJSON("http://localhost:3000/hoods/" + this.attributes.id + "/metros")
-      .done(function(response){
-        self.set("metros", response)
-      })
+    this.assets.forEach(function(asset){
+      $.getJSON("http://localhost:3000/hoods/" + self.attributes.id + "/" + asset)
+        .done(function(response){
+          self.set(asset, response)
+        })
+    })
   }
 })

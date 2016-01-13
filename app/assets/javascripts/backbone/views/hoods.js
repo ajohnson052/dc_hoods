@@ -46,6 +46,7 @@ App.Views.Hoods = Backbone.View.extend({
 
   makeSelection: function(){
     var category = $(".dropdown option:selected").val().toLowerCase()
+    console.log(category)
     var self = this;
     if(category == "none"){
       this.collection.each(function(model){
@@ -76,6 +77,7 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   drawChart: function(category, color){
+    $(".chart").empty()
     var data = [];
     this.collection.each(function(model){
       data.push({name: model["attributes"]["name"], number: model["attributes"][category].length});

@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160110173714) do
+ActiveRecord::Schema.define(version: 20160113042849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "grocers", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.integer  "hood_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.float    "coordinates", default: [],              array: true
+  end
+
+  add_index "grocers", ["hood_id"], name: "index_grocers_on_hood_id", using: :btree
 
   create_table "hoods", force: :cascade do |t|
     t.string   "name"
@@ -22,6 +33,17 @@ ActiveRecord::Schema.define(version: 20160110173714) do
     t.datetime "updated_at",               null: false
     t.float    "coordinates", default: [],              array: true
   end
+
+  create_table "libraries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.integer  "hood_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.float    "coordinates", default: [],              array: true
+  end
+
+  add_index "libraries", ["hood_id"], name: "index_libraries_on_hood_id", using: :btree
 
   create_table "metros", force: :cascade do |t|
     t.string   "name"
@@ -34,5 +56,7 @@ ActiveRecord::Schema.define(version: 20160110173714) do
 
   add_index "metros", ["hood_id"], name: "index_metros_on_hood_id", using: :btree
 
+  add_foreign_key "grocers", "hoods"
+  add_foreign_key "libraries", "hoods"
   add_foreign_key "metros", "hoods"
 end

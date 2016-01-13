@@ -15,7 +15,9 @@ main {
   padding: 2rem; }
 
 .map {
-  flex: 1; }
+  flex: 1;
+  padding: 0;
+  margin: 0; }
 
 .bar {
   height: 2rem;
@@ -25,8 +27,17 @@ main {
   color: #424242; }
 
 #map {
-  height: 680px;
-  width: 620px;
-  margin: 0 auto; }
+  height: 100vh; }
+
+@media screen and (max-width: 400px) {
+  .main {
+    display: block; }
+
+  .content {
+    display: block;
+    flex: none; }
+
+  .map {
+    flex: none; } }
 
 /*# sourceMappingURL=application.css.map */

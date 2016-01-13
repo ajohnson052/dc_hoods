@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root "welcome#index"
   resources :hoods, only: [:index, :show] do
     resources :metros, only: :index
+    resources :libraries, only: :index
+    resources :grocers, only: :index
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

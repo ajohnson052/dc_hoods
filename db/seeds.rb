@@ -3,6 +3,7 @@ require 'geokit'
 
 #destroy everything in existing db
 Metro.destroy_all
+Library.destroy_all
 Hood.destroy_all
 
 
@@ -26,8 +27,8 @@ def create_hoods array
 end
 
 #create metros
-def create_metros geokit_hoods
-  response = HTTParty.get("https://raw.githubusercontent.com/benbalter/dc-maps/master/maps/metro-stations-district.geojson")
+def create_assets(subject, model, name, geokit_hoods)
+  response = HTTParty.get("https://raw.githubusercontent.com/benbalter/dc-maps/master/maps/#{subject}.geojson")
   parsed = JSON.parse(response)
   collection = parsed["features"]
   collection.each do |station|
@@ -35,7 +36,8 @@ def create_metros geokit_hoods
     point = Geokit::LatLng.new(coordinates[0], coordinates[1])
     geokit_hoods.each do |hood|
       if hood[1].contains?(point)
-        hood[0].metros.create(coordinates: coordinates, name: station["properties"]["NAME"], address: station["properties"]["ADDRESS"])
+        model_name = model.constantize
+        model_name.create(coordinates: coordinates, name: station["properties"][name], address: station["properties"]["ADDRESS"], hood: hood[0])
         break
       end
     end
@@ -44,4 +46,6 @@ end
 
 geokit_hoods = []
 create_hoods(geokit_hoods)
-create_metros(geokit_hoods)
+create_assets("metro-stations-district", "Metro", "NAME", geokit_hoods)
+create_assets("libraries", "Library", "NAME", geokit_hoods)
+create_assets("grocery-store-locations", "Grocer", "STORENAME", geokit_hoods)
