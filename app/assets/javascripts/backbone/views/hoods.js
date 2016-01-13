@@ -4,7 +4,7 @@ App.Views.Hoods = Backbone.View.extend({
   colors: ["#181B6A", "#4D79B2", "#70226A", "#FD774F", "#71AF3B"],
 
   events: {
-    "change .dropdown": "makeSelection"
+    "click .category": "makeSelection"
   },
 
   initialize: function(){
@@ -44,8 +44,9 @@ App.Views.Hoods = Backbone.View.extend({
     })
   },
 
-  makeSelection: function(){
-    var category = $(".menu option:selected").val().toLowerCase()
+  makeSelection: function(e){
+    var category = $(e.currentTarget).attr("id")
+    console.log(typeof category)
     var self = this;
     if(category == "none"){
       this.collection.each(function(model){

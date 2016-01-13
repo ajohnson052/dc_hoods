@@ -2,23 +2,17 @@
   <div class="col-md-6">
     <h1>DC Hoods</h1>
     <div class="dropdown">
-      <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button id="dLabel" class=" dropdown dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Pick a Category
         <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu" aria-labelledby="dLabel">
-        <li id="none">None</li>
-        <li id="metros">Metros</li>
-        <li id="libraries">Libraries</li>
-        <li id="grocers">Grocers</li>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <li role="presentation"><a role="menuitem" class="category" id="none">None</a></li>
+        <li role="presentation"><a role="menuitem" class="category" id="metros">Metros</a></li>
+        <li role="presentation"><a role="menuitem" class="category" id="libraries">Libraries</a></li>
+        <li role="presentation"><a role="menuitem" class="category" id="grocers">Grocery Stores</a></li>
       </ul>
     </div>
-    <select class="menu">
-      <option id="none">None</option>
-      <option id="metros">Metros</option>
-      <option id="libraries">Libraries</option>
-      <option id="grocers">Grocers</option>
-    </select>
     <div class="chart"></div>
   </div>
   <div class="col-md-6 map">
