@@ -96,7 +96,7 @@ App.Views.Hoods = Backbone.View.extend({
     var multiplier = width/max;
     d3.select(".chart")
       .selectAll("div")
-      .data(data.slice(0, 10))
+      .data(data.slice(0, 15))
       .enter()
       .append("div")
       .attr("class", "bar")
@@ -104,10 +104,12 @@ App.Views.Hoods = Backbone.View.extend({
         return d.name + " - " + d.number
       })
       .style("background", color)
+      .transition()
       .style("width", function(d){
         var barLength = d.number * multiplier
         return barLength + "px";
       })
+      .duration(1000)
   }
 
 })
