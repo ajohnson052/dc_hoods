@@ -21,7 +21,8 @@ main {
   margin: 0; }
 
 .dropdown {
-  color: #424242; }
+  color: #424242;
+  display: inline-block; }
 
 .bar {
   height: 2rem;
