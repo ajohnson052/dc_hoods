@@ -11,10 +11,18 @@ main {
 
 .content {
   flex: 1;
-  text-align: center; }
+  text-align: center;
+  padding: 2rem; }
 
 .map {
   flex: 1; }
+
+.bar {
+  height: 2rem;
+  margin: .5rem;
+  text-align: right;
+  padding: .5rem;
+  color: #424242; }
 
 #map {
   height: 680px;

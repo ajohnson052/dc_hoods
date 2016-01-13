@@ -28,13 +28,13 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   renderOne: function(model, metros){
-    var color = this.colors[0]
+    var color = this.colors[0];
     new App.Views.Hood({model: model});
     var flipped = this.flipLatLng(model.attributes.coordinates);
     var neighborhood = L.polygon(flipped).addTo(this.map);
     neighborhood.bindPopup(model.attributes.name);
     neighborhood.setStyle({weight: 3, color: color, fillColor: color, opacity: 1, fillOpacity: .2});
-    return neighborhood
+    return neighborhood;
   },
 
   renderAll: function(){
@@ -53,15 +53,15 @@ App.Views.Hoods = Backbone.View.extend({
         var color = self.colors[0]
         polygon.setStyle({color: color, fillColor: color, opacity: 1, fillOpacity: .2});
       })
+      $(".chart").empty()
     }else{
-      this.shadeMap(category);
+      var color = this.colors[Math.ceil(Math.random()*4)];
+      this.shadeMap(category, color);
+      this.drawChart(category, color);
     }
   },
 
-  shadeMap: function(category){
-
-    var color = this.colors[Math.ceil(Math.random()*4)]
-
+  shadeMap: function(category, color){
     var array = []
     this.collection.each(function(model){
       array.push(model["attributes"][category].length)
@@ -75,8 +75,37 @@ App.Views.Hoods = Backbone.View.extend({
     })
   },
 
-  drawChart: function(){
-
+  drawChart: function(category, color){
+    var data = [];
+    this.collection.each(function(model){
+      data.push({name: model["attributes"]["name"], number: model["attributes"][category].length});
+    });
+    data.sort(function(a,b){
+      if(a.number > b.number){
+        return -1;
+      }else if(a.number < b.number){
+        return 1;
+      }else{
+        return 0;
+      }
+    });
+    var max = data[0]["number"];
+    var width = $(".chart").width();
+    var multiplier = width/max;
+    d3.select(".chart")
+      .selectAll("div")
+      .data(data.slice(0, 10))
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+      .text(function(d){
+        return d.name + " - " + d.number
+      })
+      .style("background", color)
+      .style("width", function(d){
+        var barLength = d.number * multiplier
+        return barLength + "px";
+      })
   }
 
 })
