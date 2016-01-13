@@ -45,8 +45,7 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   makeSelection: function(){
-    var category = $(".dropdown option:selected").val().toLowerCase()
-    console.log(category)
+    var category = $(".menu option:selected").val().toLowerCase()
     var self = this;
     if(category == "none"){
       this.collection.each(function(model){

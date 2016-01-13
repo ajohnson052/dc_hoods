@@ -1,7 +1,19 @@
 <main class="container-fluid">
   <div class="col-md-6">
     <h1>DC Hoods</h1>
-    <select class="dropdown">
+    <div class="dropdown">
+      <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Category
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dLabel">
+        <li id="none">None</li>
+        <li id="metros">Metros</li>
+        <li id="libraries">Libraries</li>
+        <li id="grocers">Grocers</li>
+      </ul>
+    </div>
+    <select class="menu">
       <option id="none">None</option>
       <option id="metros">Metros</option>
       <option id="libraries">Libraries</option>
