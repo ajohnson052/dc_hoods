@@ -8,6 +8,5 @@ App = {
 $(document).ready(function(){
   new App.Routers.DCHoods;
   Backbone.history.start();
-  $(".logo").delay(200).fadeOut(5000);
-  $("main").css("visibility", "visible")
+  $(".logo").delay(5000).fadeOut(800);
 });
