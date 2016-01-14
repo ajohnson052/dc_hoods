@@ -31,6 +31,7 @@ h1, h2 {
   top: 50%;
   transform: translateY(-50%);
   text-shadow: .5rem .5rem 1rem #212121;
+  font-size: 10vw;
 }
 
 .col-md-6 {
