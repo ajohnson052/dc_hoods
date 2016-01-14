@@ -13,6 +13,7 @@ App.Models.Hood = Backbone.Model.extend({
       .done(function(response){
         self.assets.forEach(function(asset){
           self.set(asset, response[asset])
+          console.log("model")
         })
       })
   }
