@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rails-backbone'
 gem 'geokit'
 gem 'pry'
 gem 'httparty'
