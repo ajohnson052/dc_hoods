@@ -38,7 +38,6 @@ App.Views.Hood = Backbone.View.extend({
       .text(function(d){
         return d.asset + " - " + d.number
       })
-      .style("background", "#71AF3B")
       .transition()
       .style("width", function(d){
         var barLength = 150 + (d.number * multiplier)

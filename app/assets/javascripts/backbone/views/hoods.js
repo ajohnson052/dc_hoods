@@ -1,8 +1,8 @@
 App.Views.Hoods = Backbone.View.extend({
   el: "main",
   polygons: {},
-  colors: ["#181B6A", "#4D79B2", "#70226A", "#FD774F", "#71AF3B"],
-  // colors: ["#181B6A", "#FC400C", "#3797B8", "#F0C20F"],
+  colors: ["#1e115d", "#70226A", "#FD774F", "#b0cf20", "#005850"],
+  colorCounter: 1,
 
   events: {
     "click .category": "makeSelection"
@@ -60,7 +60,12 @@ App.Views.Hoods = Backbone.View.extend({
       })
       $(".chart").empty()
     }else{
-      var color = this.colors[Math.ceil(Math.random()*4)];
+      var color = this.colors[this.colorCounter];
+      if(this.colorCounter < this.colors.length - 1){
+        this.colorCounter +=1;
+      }else{
+        this.colorCounter = 1;
+      }
       this.shadeMap(category, color);
       this.drawChart(category, title, color);
     }
@@ -102,7 +107,7 @@ App.Views.Hoods = Backbone.View.extend({
     var multiplier = (width - 150)/max;
     d3.select(".chart")
       .selectAll("div")
-      .data(data.slice(0, 20))
+      .data(data.slice(0, 15))
       .enter()
       .append("div")
       .attr("class", "bar")
@@ -111,7 +116,6 @@ App.Views.Hoods = Backbone.View.extend({
           return d.name + " - " + d.number
         }
       })
-      .style("background", color)
       .transition()
       .style("width", function(d){
         var barLength = 150 +(d.number * multiplier);
