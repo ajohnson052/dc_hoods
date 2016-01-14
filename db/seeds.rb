@@ -2,8 +2,17 @@ require 'pry'
 require 'geokit'
 
 #destroy everything in existing db
-Metro.destroy_all
+BikeShare.destroy_all
+CharterSchool.destroy_all
+ChildcareFacility.destroy_all
+Embassy.destroy_all
+Grocer.destroy_all
 Library.destroy_all
+Metro.destroy_all
+Nightclub.destroy_all
+Pharmacy.destroy_all
+PlaceOfWorship.destroy_all
+PoliceStation.destroy_all
 Hood.destroy_all
 
 
@@ -49,3 +58,11 @@ create_hoods(geokit_hoods)
 create_assets("metro-stations-district", "Metro", "NAME", geokit_hoods)
 create_assets("libraries", "Library", "NAME", geokit_hoods)
 create_assets("grocery-store-locations", "Grocer", "STORENAME", geokit_hoods)
+create_assets("capital-bike-share-locations", "BikeShare", "TERMINAL_NUMBER", geokit_hoods)
+create_assets("places-of-worship", "PlaceOfWorship", "NAME", geokit_hoods)
+create_assets("police-stations", "PoliceStation", "NAME", geokit_hoods)
+create_assets("charter-schools", "CharterSchool", "NAME", geokit_hoods)
+create_assets("child-care-locations", "ChildcareFacility", "NAME", geokit_hoods)
+create_assets("embassies", "Embassy", "EMB_TITLE", geokit_hoods)
+create_assets("night-club", "Nightclub", "Name", geokit_hoods)
+create_assets("pharmacy-locations", "Pharmacy", "NAME", geokit_hoods)

@@ -2,6 +2,7 @@ App.Views.Hoods = Backbone.View.extend({
   el: "main",
   polygons: {},
   colors: ["#181B6A", "#4D79B2", "#70226A", "#FD774F", "#71AF3B"],
+  // colors: ["#181B6A", "#FC400C", "#3797B8", "#F0C20F"],
 
   events: {
     "click .category": "makeSelection"
@@ -29,9 +30,11 @@ App.Views.Hoods = Backbone.View.extend({
 
   renderOne: function(model, metros){
     var color = this.colors[0];
-    new App.Views.Hood({model: model});
     var flipped = this.flipLatLng(model.attributes.coordinates);
     var neighborhood = L.polygon(flipped).addTo(this.map);
+    neighborhood.on("click", function(){
+      new App.Views.Hood({model: model})
+    })
     neighborhood.bindPopup(model.attributes.name);
     neighborhood.setStyle({weight: 3, color: color, fillColor: color, opacity: 1, fillOpacity: .2});
     return neighborhood;
@@ -81,7 +84,9 @@ App.Views.Hoods = Backbone.View.extend({
     $(".chart").empty().append($("<h2>" + title + "</h2>"))
     var data = [];
     this.collection.each(function(model){
-      data.push({name: model["attributes"]["name"], number: model["attributes"][category].length});
+      if(model["attributes"][category].length > 0){
+        data.push({name: model["attributes"]["name"], number: model["attributes"][category].length});
+      }
     });
     data.sort(function(a,b){
       if(a.number > b.number){
@@ -94,20 +99,22 @@ App.Views.Hoods = Backbone.View.extend({
     });
     var max = data[0]["number"];
     var width = $(".chart").width();
-    var multiplier = width/max;
+    var multiplier = (width - 150)/max;
     d3.select(".chart")
       .selectAll("div")
-      .data(data.slice(0, 15))
+      .data(data.slice(0, 20))
       .enter()
       .append("div")
       .attr("class", "bar")
       .text(function(d){
-        return d.name + " - " + d.number
+        if(d.number > 0){
+          return d.name + " - " + d.number
+        }
       })
       .style("background", color)
       .transition()
       .style("width", function(d){
-        var barLength = d.number * multiplier
+        var barLength = 150 +(d.number * multiplier);
         return barLength + "px";
       })
       .duration(1000)

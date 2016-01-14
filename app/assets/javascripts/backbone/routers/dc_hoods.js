@@ -1,6 +1,7 @@
 App.Routers.DCHoods = Backbone.Router.extend({
   routes: {
-    "": "index"
+    "": "index",
+    "hoods/:id": "showHood",
   },
 
   initialize: function(){
@@ -10,5 +11,13 @@ App.Routers.DCHoods = Backbone.Router.extend({
 
   index: function(){
     App.Collections.hoods.fetch({reset: true});
+  },
+
+  showHood: function(id){
+    App.Collections.hoods.each(function(hood){
+      if(hood.attributes.id === id){
+        new App.Views.Hood ({model: hood})
+      }
+    })
   }
 })

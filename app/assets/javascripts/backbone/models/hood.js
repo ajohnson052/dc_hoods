@@ -1,7 +1,7 @@
 App.Models.Hood = Backbone.Model.extend({
   urlRoot: "http://localhost:3000/hoods",
 
-  assets: ["metros", "libraries", "grocers"],
+  assets: ["bike_shares", "charter_schools", "childcare_facilities", "embassies", "grocers", "libraries", "metros", "nightclubs", "pharmacies", "place_of_worships",  "police_stations"],
 
   initialize: function(){
     this.getAssets();

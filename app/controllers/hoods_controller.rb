@@ -7,7 +7,19 @@ class HoodsController < ApplicationController
 
   def show
     hood = Hood.find(params[:id])
-    render json: hood.to_json(include: [:metros, :libraries, :grocers])
+    render json: hood.to_json(include: [
+      :bike_shares,
+      :charter_schools,
+      :childcare_facilities,
+      :embassies,
+      :grocers,
+      :libraries,
+      :metros,
+      :nightclubs,
+      :pharmacies,
+      :place_of_worships,
+      :police_stations
+      ])
   end
 
 end
