@@ -13,7 +13,6 @@ App.Views.Hood = Backbone.View.extend({
     var data = [];
     this.assets.forEach(function(asset){
       if(self.model.attributes[asset]["length"] > 0){
-        console.log(self.model.attributes[asset]["length"])
         data.push({asset: asset, number: self.model.attributes[asset]["length"]});
       }
     });
@@ -36,7 +35,12 @@ App.Views.Hood = Backbone.View.extend({
       .append("div")
       .attr("class", "bar")
       .text(function(d){
-        return d.asset + " - " + d.number
+        if(d.asset === "place_of_worships"){
+          var title = ["places of worship"];
+        }else{
+          var title = d.asset.split("_");
+        }
+        return title.join(" ") + " - " + d.number
       })
       .transition()
       .style("width", function(d){
