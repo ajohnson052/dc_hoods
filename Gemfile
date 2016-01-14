@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rails_12factor', group: :production
 gem 'rails-backbone'
 gem 'geokit'
 gem 'pry'
