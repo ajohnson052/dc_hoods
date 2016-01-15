@@ -11,8 +11,6 @@
 // about supported directives.
 
 
-//= require 'backbone/app.js'
-//= require 'backbone/models/hood.js'
 
 
 //= require jquery
@@ -23,6 +21,8 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 
+//= require 'backbone/app.js'
+//= require 'backbone/models/hood.js'
 
 //= require 'backbone/collections/hoods.js'
 //= require 'backbone/routers/dc_hoods.js'
