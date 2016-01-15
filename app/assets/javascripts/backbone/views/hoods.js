@@ -33,8 +33,8 @@ App.Views.Hoods = Backbone.View.extend({
     var flipped = this.flipLatLng(model.attributes.coordinates);
     var neighborhood = L.polygon(flipped).addTo(this.map);
     neighborhood.on("click", function(){
-      new App.Views.Hood({model: model})
-    })
+      new App.Views.Hood({model: model});
+    });
     neighborhood.bindPopup(model.attributes.name);
     neighborhood.setStyle({weight: 3, color: color, fillColor: color, opacity: 1, fillOpacity: 0.2});
     return neighborhood;
@@ -43,22 +43,22 @@ App.Views.Hoods = Backbone.View.extend({
   renderAll: function(){
     var self = this;
     this.collection.each(function(model){
-      self.polygons[model.id] = self.renderOne(model)
-    })
+      self.polygons[model.id] = self.renderOne(model);
+    });
   },
 
   makeSelection: function(e){
-    var category = $(e.currentTarget).attr("id")
-    var title = $(e.currentTarget).html()
-    console.log(title)
+    var category = $(e.currentTarget).attr("id");
+    var title = $(e.currentTarget).html();
+    console.log(title);
     var self = this;
     if(category == "none"){
       this.collection.each(function(model){
-        var polygon = App.Views.hoods.polygons[model.attributes.id]
-        var color = self.colors[0]
-        polygon.setStyle({color: color, fillColor: color, opacity: 1, fillOpacity: .2});
-      })
-      $(".chart").empty()
+        var polygon = App.Views.hoods.polygons[model.attributes.id];
+        var color = self.colors[0];
+        polygon.setStyle({color: color, fillColor: color, opacity: 1, fillOpacity: 0.2});
+      });
+      $(".chart").empty();
     }else{
       var color = this.colors[this.colorCounter];
       if(this.colorCounter < this.colors.length - 1){
@@ -72,21 +72,21 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   shadeMap: function(category, color){
-    var array = []
+    var array = [];
     this.collection.each(function(model){
-      array.push(model["attributes"][category].length)
-    })
-    var max = Math.max(...array)
+      array.push(model["attributes"][category].length);
+    });
+    var max = Math.max.apply(null, array);
 
     this.collection.each(function(model){
-      var polygon = App.Views.hoods.polygons[model.attributes.id]
-      var value = model["attributes"][category].length / (max * 0.5)
+      var polygon = App.Views.hoods.polygons[model.attributes.id];
+      var value = model["attributes"][category].length / (max * 0.5);
       polygon.setStyle({color: color, fillColor: color, opacity: value, fillOpacity: value});
-    })
+    });
   },
 
   drawChart: function(category, title, color){
-    $(".chart").empty().append($("<h2>" + title + "</h2>"))
+    $(".chart").empty().append($("<h2>" + title + "</h2>"));
     var data = [];
     this.collection.each(function(model){
       if(model["attributes"][category].length > 0){
@@ -113,7 +113,7 @@ App.Views.Hoods = Backbone.View.extend({
       .attr("class", "bar")
       .text(function(d){
         if(d.number > 0){
-          return d.name + " - " + d.number
+          return d.name + " - " + d.number;
         }
       })
       .transition()
@@ -121,7 +121,7 @@ App.Views.Hoods = Backbone.View.extend({
         var barLength = 150 +(d.number * multiplier);
         return barLength + "px";
       })
-      .duration(1000)
+      .duration(1000);
   }
 
-})
+});
