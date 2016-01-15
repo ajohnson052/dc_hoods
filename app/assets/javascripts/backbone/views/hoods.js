@@ -36,7 +36,7 @@ App.Views.Hoods = Backbone.View.extend({
       new App.Views.Hood({model: model})
     })
     neighborhood.bindPopup(model.attributes.name);
-    neighborhood.setStyle({weight: 3, color: color, fillColor: color, opacity: 1, fillOpacity: .2});
+    neighborhood.setStyle({weight: 3, color: color, fillColor: color, opacity: 1, fillOpacity: 0.2});
     return neighborhood;
   },
 
@@ -80,7 +80,7 @@ App.Views.Hoods = Backbone.View.extend({
 
     this.collection.each(function(model){
       var polygon = App.Views.hoods.polygons[model.attributes.id]
-      var value = model["attributes"][category].length / (max * .5)
+      var value = model["attributes"][category].length / (max * 0.5)
       polygon.setStyle({color: color, fillColor: color, opacity: value, fillOpacity: value});
     })
   },

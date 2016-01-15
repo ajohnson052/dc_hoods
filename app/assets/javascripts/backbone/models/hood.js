@@ -8,13 +8,13 @@ App.Models.Hood = Backbone.Model.extend({
   },
 
   getAssets: function(asset){
-    var self = this
+    var self = this;
     $.getJSON("http://localhost:3000/hoods/" + self.attributes.id)
       .done(function(response){
         self.assets.forEach(function(asset){
-          self.set(asset, response[asset])
-          console.log("model")
-        })
-      })
+          self.set(asset, response[asset]);
+          console.log("model");
+        });
+      });
   }
-})
+});
