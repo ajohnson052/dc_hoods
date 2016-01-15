@@ -47,24 +47,32 @@ App.Views.Hoods = Backbone.View.extend({
     });
   },
 
+  reset: function(){
+    var self = this;
+    this.collection.each(function(model){
+      var polygon = App.Views.hoods.polygons[model.attributes.id];
+      var color = self.colors[0];
+      polygon.setStyle({color: color, fillColor: color, opacity: 1, fillOpacity: 0.2});
+    });
+    $(".chart").empty();
+  },
+
+  advanceColorCounter: function(){
+    if(this.colorCounter < this.colors.length - 1){
+      this.colorCounter +=1;
+    }else{
+      this.colorCounter = 1;
+    }
+  },
+
   makeSelection: function(e){
     var category = $(e.currentTarget).attr("id");
     var title = $(e.currentTarget).html();
-    var self = this;
     if(category == "none"){
-      this.collection.each(function(model){
-        var polygon = App.Views.hoods.polygons[model.attributes.id];
-        var color = self.colors[0];
-        polygon.setStyle({color: color, fillColor: color, opacity: 1, fillOpacity: 0.2});
-      });
-      $(".chart").empty();
+      this.reset();
     }else{
       var color = this.colors[this.colorCounter];
-      if(this.colorCounter < this.colors.length - 1){
-        this.colorCounter +=1;
-      }else{
-        this.colorCounter = 1;
-      }
+      this.advanceColorCounter();
       this.shadeMap(category, color);
       this.drawChart(category, title, color);
     }
