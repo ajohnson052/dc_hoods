@@ -12,7 +12,7 @@ App.Views.Hood = Backbone.View.extend({
     var self = this;
     var data = [];
     this.assets.forEach(function(asset){
-      if(self.model.attributes[asset].length > 0){
+      if(self.model.get(asset).length > 0){
         data.push({asset: asset, number: self.model.attributes[asset].length});
       }
     });

@@ -35,7 +35,9 @@ App.Views.Hoods = Backbone.View.extend({
     var flipped = this.flipLatLng(model.attributes.coordinates);
     var neighborhood = L.polygon(flipped).addTo(this.map);
     neighborhood.on("click", function(){
+      console.log(model)
       new App.Views.Hood({model: model});
+      App.Routers.dcHoods.navigate("hood/" + model.id);
     });
     neighborhood.bindPopup(model.attributes.name);
     neighborhood.setStyle({weight: 3, color: color, fillColor: color, opacity: 1, fillOpacity: 0.2});
