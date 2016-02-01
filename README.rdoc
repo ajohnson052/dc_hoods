@@ -1,5 +1,0 @@
-== Technologies Used
-
-* Backbone
-* Rails
-* Geokit Gem
