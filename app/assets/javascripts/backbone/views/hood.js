@@ -5,10 +5,10 @@ App.Views.Hood = Backbone.View.extend({
 
   initialize: function(){
     $(".chart").empty().append($("<h2>" + this.model.attributes.name + "</h2>"));
-    this.render();
+    this.render(this.getData());
   },
 
-  render: function(){
+  getData: function(){
     var self = this;
     var data = [];
     this.assets.forEach(function(asset){
@@ -25,6 +25,10 @@ App.Views.Hood = Backbone.View.extend({
         return 0;
       }
     });
+    return data;
+  },
+
+  render: function(data){
     var max = data[0].number;
     var width = $(".chart").width();
     var multiplier = (width - 150)/max;

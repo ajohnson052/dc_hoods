@@ -74,7 +74,7 @@ App.Views.Hoods = Backbone.View.extend({
       var color = this.colors[this.colorCounter];
       this.advanceColorCounter();
       this.shadeMap(category, color);
-      this.drawChart(category, title, color);
+      this.drawChart(this.getData(category), title, color);
     }
   },
 
@@ -92,8 +92,7 @@ App.Views.Hoods = Backbone.View.extend({
     });
   },
 
-  drawChart: function(category, title, color){
-    $(".chart").empty().append($("<h2>" + title + "</h2>"));
+  getData: function(category){
     var data = [];
     this.collection.each(function(model){
       if(model.attributes[category].length > 0){
@@ -109,6 +108,11 @@ App.Views.Hoods = Backbone.View.extend({
         return 0;
       }
     });
+    return data;
+  },
+
+  drawChart: function(data, title, color){
+    $(".chart").empty().append($("<h2>" + title + "</h2>"));
     var max = data[0].number;
     var width = $(".chart").width();
     var multiplier = (width - 150)/max;
