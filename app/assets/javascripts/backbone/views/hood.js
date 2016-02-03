@@ -28,7 +28,16 @@ App.Views.Hood = Backbone.View.extend({
     return data;
   },
 
+  getTitle: function(asset){
+    if(asset === "place_of_worships"){
+      return "places of worship";
+    }else{
+      return asset.split("_").join(" ");
+    }
+  },
+
   render: function(data){
+    var self = this;
     var max = data[0].number;
     var width = $(".chart").width();
     var multiplier = (width - 150)/max;
@@ -39,12 +48,8 @@ App.Views.Hood = Backbone.View.extend({
       .append("div")
       .attr("class", "bar")
       .text(function(d){
-        if(d.asset === "place_of_worships"){
-          var title = ["places of worship"];
-        }else{
-          var title = d.asset.split("_");
-        }
-        return title.join(" ") + " - " + d.number;
+        var title = self.getTitle(d.asset);
+        return title + " - " + d.number;
       })
       .transition()
       .style("width", function(d){

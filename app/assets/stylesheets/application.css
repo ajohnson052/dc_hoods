@@ -14,6 +14,10 @@ h1, h2 {
   text-shadow: .3rem .3rem .3rem #212121;
 }
 
+h2 {
+  text-transform: capitalize;
+}
+
 .container-fluid {
   padding: 0;
 }

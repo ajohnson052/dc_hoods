@@ -27,7 +27,9 @@ App.Routers.DCHoods = Backbone.Router.extend({
   showAsset: function(asset){
     App.Collections.hoods.fetch({
       reset: true,
-      success: App.Views.hoods.selectAsset("nil", asset)
+      success: function(){
+        App.Views.hoods.selectAsset("nil", asset);
+      }
     });
   }
 });

@@ -68,23 +68,33 @@ App.Views.Hoods = Backbone.View.extend({
     }
   },
 
+  getTitle: function(asset){
+    console.log(asset)
+    if(asset === "place_of_worships"){
+      return "places of worship";
+    }else{
+      return asset.split("_").join(" ");
+    }
+  },
+
   selectAsset: function(e){
     if(arguments.length > 1){
-      var category = arguments[1];
+      var asset = arguments[1];
+      console.log(asset)
     }
     else{
-      var category = $(e.currentTarget).attr("id");
-      App.Routers.dcHoods.navigate(category);
+      var asset = $(e.currentTarget).attr("id");
+      App.Routers.dcHoods.navigate(asset);
     }
-    var title = $(e.currentTarget).html();
-    if(category == "none"){
+    var title = this.getTitle(asset);
+    if(asset == "none"){
       this.reset();
     }
     else{
       var color = this.colors[this.colorCounter];
       this.advanceColorCounter();
-      this.shadeMap(category, color);
-      this.drawChart(this.getData(category), title, color);
+      this.shadeMap(asset, color);
+      this.drawChart(this.getData(asset), title, color);
     }
   },
 
