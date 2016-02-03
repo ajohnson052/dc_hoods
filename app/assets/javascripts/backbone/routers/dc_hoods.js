@@ -1,7 +1,8 @@
 App.Routers.DCHoods = Backbone.Router.extend({
   routes: {
-    // "": "index",
+    "": "index",
     "hood/:id": "showHood",
+    ":asset": "showAsset"
   },
 
   initialize: function(){
@@ -21,5 +22,9 @@ App.Routers.DCHoods = Backbone.Router.extend({
         new App.Views.Hood({model: model});
       }
     });
+  },
+
+  showAsset: function(){
+    
   }
 });

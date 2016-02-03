@@ -35,7 +35,6 @@ App.Views.Hoods = Backbone.View.extend({
     var flipped = this.flipLatLng(model.attributes.coordinates);
     var neighborhood = L.polygon(flipped).addTo(this.map);
     neighborhood.on("click", function(){
-      console.log(model)
       new App.Views.Hood({model: model});
       App.Routers.dcHoods.navigate("hood/" + model.id);
     });
@@ -76,6 +75,7 @@ App.Views.Hoods = Backbone.View.extend({
       this.reset();
     }else{
       var color = this.colors[this.colorCounter];
+      App.Routers.dcHoods.navigate(category)
       this.advanceColorCounter();
       this.shadeMap(category, color);
       this.drawChart(this.getData(category), title, color);
