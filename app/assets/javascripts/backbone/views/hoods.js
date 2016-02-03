@@ -69,7 +69,7 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   getTitle: function(asset){
-    console.log(asset)
+    console.log(asset);
     if(asset === "place_of_worships"){
       return "places of worship";
     }else{
@@ -80,7 +80,6 @@ App.Views.Hoods = Backbone.View.extend({
   selectAsset: function(e){
     if(arguments.length > 1){
       var asset = arguments[1];
-      console.log(asset)
     }
     else{
       var asset = $(e.currentTarget).attr("id");
@@ -98,25 +97,25 @@ App.Views.Hoods = Backbone.View.extend({
     }
   },
 
-  shadeMap: function(category, color){
+  shadeMap: function(asset, color){
     var array = [];
     this.collection.each(function(model){
-      array.push(model.attributes[category].length);
+      array.push(model.attributes[asset].length);
     });
     var max = Math.max.apply(null, array);
 
     this.collection.each(function(model){
       var polygon = App.Views.hoods.polygons[model.attributes.id];
-      var value = model.attributes[category].length / (max * 0.5);
+      var value = model.attributes[asset].length / (max * 0.5);
       polygon.setStyle({color: color, fillColor: color, opacity: value, fillOpacity: value});
     });
   },
 
-  getData: function(category){
+  getData: function(asset){
     var data = [];
     this.collection.each(function(model){
-      if(model.attributes[category].length > 0){
-        data.push({name: model.attributes.name, number: model.attributes[category].length});
+      if(model.attributes[asset].length > 0){
+        data.push({name: model.attributes.name, number: model.attributes[asset].length});
       }
     });
     data.sort(function(a,b){
