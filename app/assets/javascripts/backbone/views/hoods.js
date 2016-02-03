@@ -78,11 +78,12 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   selectAsset: function(e){
+    var asset = "";
     if(arguments.length > 1){
-      var asset = arguments[1];
+      asset = arguments[1];
     }
     else{
-      var asset = $(e.currentTarget).attr("id");
+      asset = $(e.currentTarget).attr("id");
       App.Routers.dcHoods.navigate(asset);
     }
     var title = this.getTitle(asset);
