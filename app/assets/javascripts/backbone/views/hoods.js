@@ -70,17 +70,18 @@ App.Views.Hoods = Backbone.View.extend({
 
   selectAsset: function(e){
     if(arguments.length > 1){
-      var category = arguments[1]
+      var category = arguments[1];
     }
     else{
       var category = $(e.currentTarget).attr("id");
+      App.Routers.dcHoods.navigate(category);
     }
     var title = $(e.currentTarget).html();
     if(category == "none"){
       this.reset();
-    }else{
+    }
+    else{
       var color = this.colors[this.colorCounter];
-      App.Routers.dcHoods.navigate(category)
       this.advanceColorCounter();
       this.shadeMap(category, color);
       this.drawChart(this.getData(category), title, color);
