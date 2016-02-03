@@ -24,7 +24,10 @@ App.Routers.DCHoods = Backbone.Router.extend({
     });
   },
 
-  showAsset: function(){
-    
+  showAsset: function(asset){
+    App.Collections.hoods.fetch({
+      reset: true,
+      success: App.Views.hoods.selectAsset("nil", asset)
+    });
   }
 });

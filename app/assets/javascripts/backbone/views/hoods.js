@@ -5,7 +5,7 @@ App.Views.Hoods = Backbone.View.extend({
   colorCounter: 1,
 
   events: {
-    "click .category": "makeSelection"
+    "click .category": "selectAsset"
   },
 
   initialize: function(){
@@ -68,8 +68,13 @@ App.Views.Hoods = Backbone.View.extend({
     }
   },
 
-  makeSelection: function(e){
-    var category = $(e.currentTarget).attr("id");
+  selectAsset: function(e){
+    if(arguments.length > 1){
+      var category = arguments[1]
+    }
+    else{
+      var category = $(e.currentTarget).attr("id");
+    }
     var title = $(e.currentTarget).html();
     if(category == "none"){
       this.reset();
