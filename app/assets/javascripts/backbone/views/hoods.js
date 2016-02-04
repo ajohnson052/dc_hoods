@@ -69,7 +69,6 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   getTitle: function(asset){
-    console.log(asset);
     if(asset === "place_of_worships"){
       return "places of worship";
     }else{
@@ -116,7 +115,7 @@ App.Views.Hoods = Backbone.View.extend({
     var data = [];
     this.collection.each(function(model){
       if(model.attributes[asset].length > 0){
-        data.push({name: model.attributes.name, number: model.attributes[asset].length});
+        data.push({name: model.attributes.name, number: model.attributes[asset].length, id: model.attributes.id});
       }
     });
     data.sort(function(a,b){
@@ -142,17 +141,21 @@ App.Views.Hoods = Backbone.View.extend({
       .enter()
       .append("div")
       .attr("class", "bar")
-      .text(function(d){
-        if(d.number > 0){
-          return d.name + " - " + d.number;
-        }
-      })
       .transition()
       .style("width", function(d){
         var barLength = 150 +(d.number * multiplier);
         return barLength + "px";
       })
-      .duration(1000);
+      .duration(1000)
+      .html(function(d){
+        if(d.number > 0){
+          return "<a href='#hood/'d.name + " - " + d.number;
+        }
+      })
+      .append("a")
+      .attr("xlink:href", function(d){
+        return "#hoods/" + d.id;
+      })
   }
 
 });
