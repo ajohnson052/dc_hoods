@@ -69,7 +69,6 @@ App.Views.Hoods = Backbone.View.extend({
   },
 
   getTitle: function(asset){
-    console.log(asset);
     if(asset === "place_of_worships"){
       return "places of worship";
     }else{
